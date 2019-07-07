@@ -76,7 +76,7 @@ class ProfileController extends Controller
             // Update the record
             $user->save();
 
-            return view('profile.view', ['success_message' => __('Successfully updated!')]);
+            return view('profile.view', ['success_message' => __('Successfully updated!'), 'user' => $user]);
         }
 
         return view('profile.edit', ['user' => $user]);

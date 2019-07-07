@@ -74,7 +74,7 @@ class UsersController extends Controller
             $user->email = $request->email;
             $user->name = $request->name;
             $user->in_probation = $request->in_probation;
-            $user->role_id = $request->role_id;
+            $user->role_id = $request->role;
             $user->password = bcrypt($request->password);
             $user->phone = $request->phone;
             $user->birth_date = $request->birth_date;
@@ -83,7 +83,10 @@ class UsersController extends Controller
             // Save the record
             $user->save();
 
-            return view('users.index', ['success_message' => __('User was created successfully!')]);
+            // Prepare the users
+            $users = User::all();
+
+            return view('users.index', ['success_message' => __('User was created successfully!'), 'users' => $users]);
         }
 
         // Get roles
@@ -124,7 +127,7 @@ class UsersController extends Controller
             $user->email = $request->email;
             $user->name = $request->name;
             $user->in_probation = $request->in_probation;
-            $user->role_id = $request->role_id;
+            $user->role_id = $request->role;
 
             // Password could be the same - no new one provided
             if ($request->password) {
@@ -137,7 +140,10 @@ class UsersController extends Controller
             // Update the record
             $user->save();
 
-            return view('users.index', ['success_message' => __('User was updated successfully!')]);
+            // Prepare users
+            $users = User::all();
+
+            return view('users.index', ['success_message' => __('User was updated successfully!'), 'users' => $users]);
         }
 
         // Get roles

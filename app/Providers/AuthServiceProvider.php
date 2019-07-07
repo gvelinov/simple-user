@@ -27,25 +27,27 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        $permissions = Permission::pluck('ident');
-        $permissions->each(function(string $ident) {
-            Gate::define($ident, function (User $user) {
-                $userClosure = function ($query) use ($user) {
-                    $query->where('users.id', '=', $user->id);
-                };
-                $userPermissions = Permission::query()
-                    ->whereHas('roles', function ($query) use ($userClosure) {
-                        $query->whereHas('users', $userClosure);
-                    })
-                    ->groupBy('permissions.id')
-                    ->pluck('ident');
+        if (\Schema::hasTable('permissions')) {
+            $permissions = Permission::pluck('ident');
+            $permissions->each(function (string $ident) {
+                Gate::define($ident, function (User $user) use ($ident) {
+                    $userClosure = function ($query) use ($user) {
+                        $query->where('users.id', '=', $user->id);
+                    };
+                    $userPermissions = Permission::query()
+                        ->whereHas('roles', function ($query) use ($userClosure) {
+                            $query->whereHas('users', $userClosure);
+                        })
+                        ->groupBy('permissions.id')
+                        ->pluck('ident');
 
-                if ($userPermissions) {
-                    return true;
-                }
+                    if (in_array($ident, $userPermissions->toArray())) {
+                        return true;
+                    }
 
-                return false;
+                    return false;
+                });
             });
-        });
+        }
     }
 }

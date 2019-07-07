@@ -1,6 +1,6 @@
 ## Simple User management system
 
-This is a simple web app written on Laravel. It allows user management 
+This is a simple web app for user management, written on Laravel. It allows user management 
 with initial RBAC functionality. There are two ways to start the app - 
 using docker-compose or manually (on configured LAMP). As a requirements - PHP7, Apache 2.4, MySQL 5.7.
 
@@ -28,7 +28,7 @@ where {container name} should be similar to _...app_1_ depending on the location
 Note: the _storage_ directory could have wrong permissions so change them so Apache can read/write to it.
 
 #### Available user for login and data
-When the app is up and running you can use the user _demo@demo.com_ with pass _Changeme1  
+When the app is up and running you can use the user _demo@demo.com_ with pass _Changeme1_  
 There are two roles - _manager_ and _staff_. And some predefined permissions for _manager_ and _staff_ capabilities.  
 When you are _manager_ after login you are able to see a menu item _Users_ from where user management could be done.
 
