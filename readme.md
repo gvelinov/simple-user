@@ -20,7 +20,8 @@ where container name is something with _..._app_1_ (form step 5 you should've se
 #### Running on LAMP
 1. You need installed and configured LAMP and composer
 2. Copy _.env.example_ to _.env_
-3. Edit _.env_ setting for the DB connection (database name, user, pass, host, port - make sure they already exist).
+3. Edit _.env_ setting for the DB connection (database name, user, pass, host, port - make sure they already exist).  
+Note: if your host differ from localhost change the value of _APP_URL_ too.
 4. Now, run ```composer install``` 
 5. Create the db schema and insert some test data with
 ```php artisan migrate:refresh --seed```.  
