@@ -4,7 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Models\Permission;
+use App\Permission;
+use App\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -34,12 +35,9 @@ class AuthServiceProvider extends ServiceProvider
                 };
                 $userPermissions = Permission::query()
                     ->whereHas('roles', function ($query) use ($userClosure) {
-                        $query->where('active', '=', 1)
-                            ->whereHas('users', $userClosure);
+                        $query->whereHas('users', $userClosure);
                     })
-                    ->orWhereHas('users', $userClosure)
                     ->groupBy('permissions.id')
-                    ->where('active', '=', 1)
                     ->pluck('ident');
 
                 if ($userPermissions) {

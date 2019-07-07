@@ -10,6 +10,7 @@ RUN yum -y install httpd \
 COPY config/httpd/app.conf /etc/httpd/conf.d/
 COPY ./* /var/www/html/
 COPY .env /var/www/html/
+COPY public/.htaccess /var/www/html/public/
 
 WORKDIR /var/www/html
 RUN php72 -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \

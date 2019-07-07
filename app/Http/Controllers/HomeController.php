@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $te = 0;
+        if (Gate::allows('users.edit')) {
+            $te = 1;
+        }
+
+        return view('home', ['te' => $te]);
     }
 }
