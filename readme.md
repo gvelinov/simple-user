@@ -24,8 +24,9 @@ where {container name} should be similar to _...app_1_ depending on the location
 3. Edit _.env_ setting for the DB connection (database name, user, pass, host, port - make sure they exist).
 4. Now, run ```composer install``` 
 5. Create the db schema and insert some test data with
-```php artisan migrate:refresh --seed```.
-Note: the _storage_ directory could have wrong permissions so change them so Apache can read/write to it.
+```php artisan migrate:refresh --seed```.  
+
+Note: the _storage_ directory could have wrong permissions, if so change them so Apache can read/write to it (you will see an error if you have to do it).
 
 #### Available user for login and data
 When the app is up and running you can use the user _demo@demo.com_ with pass _Changeme1_  
