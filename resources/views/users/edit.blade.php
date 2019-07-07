@@ -50,6 +50,7 @@
                                     <input type="date" class="form-control" name="birth_date" value="{{ $user->birth_date ?? null }}" id="inputBirth" placeholder="">
                                 </div>
                             </div>
+                            @if ($user->id !== \Illuminate\Support\Facades\Auth::user()->id)
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputRole">Role</label>
@@ -73,6 +74,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
                             <button type="submit" class="btn btn-primary float-right">Update</button>
                         </form>
                     </div>
