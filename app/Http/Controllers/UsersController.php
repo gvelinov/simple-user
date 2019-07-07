@@ -71,8 +71,11 @@ class UsersController extends Controller
             $user = new User();
             $user->email = $request->email;
             $user->name = $request->name;
-            $user->in_probation = $request->in_probation;
-            $user->role_id = $request->role;
+            // Manager is not allowed to change those options for himself
+            if ($user->id !== Auth::user()->id) {
+                $user->in_probation = $request->in_probation;
+                $user->role_id = $request->role;
+            }
             $user->password = bcrypt($request->password);
             $user->phone = $request->phone;
             $user->birth_date = $request->birth_date;
