@@ -10,12 +10,6 @@
                     <div class="card-body">
                         <a class="btn btn-primary float-right mb-4" href="{{ route('users.create.view') }}">Add +</a>
 
-                        @if (isset($success_message))
-                            <div class="alert alert-success" role="alert">
-                                {{ $success_message }}
-                            </div>
-                        @endif
-
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -29,20 +23,21 @@
                             </thead>
                             <tbody>
                             @foreach ($users as $user)
-                            <tr>
-                                <th scope="row">{{ $user->id }}</th>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->employee_id }}</td>
-                                <td>{{ $user->role->name }}</td>
-                                <td>
-                                    <a href="{{ route('users.view', ['user' => $user->id]) }}">view</a>
-                                    <a href="{{ route('users.edit', ['user' => $user->id]) }}">edit</a>
-                                    @if (Auth::user()->id !== $user->id)
-                                        <a href="{{ route('users.delete', ['user' => $user->id]) }}" onclick="return confirm('Delete this user?')">delete</a>
-                                    @endif
-                                </td>
-                            </tr>
+                                <tr>
+                                    <th scope="row">{{ $user->id }}</th>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->employee_id }}</td>
+                                    <td>{{ $user->role->name }}</td>
+                                    <td>
+                                        <a href="{{ route('users.view', ['user' => $user->id]) }}">view</a>
+                                        <a href="{{ route('users.edit', ['user' => $user->id]) }}">edit</a>
+                                        @if (Auth::user()->id !== $user->id)
+                                            <a href="{{ route('users.delete', ['user' => $user->id]) }}"
+                                               onclick="return confirm('Delete this user?')">delete</a>
+                                        @endif
+                                    </td>
+                                </tr>
                             @endforeach
                         </table>
                     </div>

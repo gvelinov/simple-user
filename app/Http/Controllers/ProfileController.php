@@ -58,7 +58,7 @@ class ProfileController extends Controller
                 'name' => 'required|string|max:50',
                 'password' => 'nullable|string|max:30|min:6|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/i',
                 'address' => 'string|max:100|nullable',
-                'phone' => 'regex:/^[0-9]{7,15}$/|nullable',
+                'phone' => 'regex:/^[0-9]{4,15}$/|nullable',
                 'birth_date' => 'date|nullable'
             ]);
 
@@ -76,7 +76,7 @@ class ProfileController extends Controller
             // Update the record
             $user->save();
 
-            return view('profile.view', ['success_message' => __('Successfully updated!'), 'user' => $user]);
+            return redirect()->route('profile');
         }
 
         return view('profile.edit', ['user' => $user]);

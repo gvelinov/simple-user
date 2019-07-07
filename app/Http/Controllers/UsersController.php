@@ -6,9 +6,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
-use Psy\Util\Str;
 
 class UsersController extends Controller
 {
@@ -65,7 +63,7 @@ class UsersController extends Controller
                 'role' => 'integer|required',
                 'password' => 'required|string|max:30|min:6|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/i',
                 'address' => 'string|max:100|nullable',
-                'phone' => 'regex:/^[0-9]{7,15}$/|nullable',
+                'phone' => 'regex:/^[0-9]{4,15}$/|nullable',
                 'birth_date' => 'date|nullable'
             ]);
 
@@ -83,10 +81,7 @@ class UsersController extends Controller
             // Save the record
             $user->save();
 
-            // Prepare the users
-            $users = User::all();
-
-            return view('users.index', ['success_message' => __('User was created successfully!'), 'users' => $users]);
+            return redirect()->route('users');
         }
 
         // Get roles
@@ -120,7 +115,7 @@ class UsersController extends Controller
                 'role' => 'integer|required',
                 'password' => 'nullable|string|max:30',
                 'address' => 'string|max:100|nullable',
-                'phone' => 'regex:/^[0-9]{7,15}$/|nullable',
+                'phone' => 'regex:/^[0-9]{4,15}$/|nullable',
                 'birth_date' => 'date|nullable'
             ]);
 
@@ -140,10 +135,7 @@ class UsersController extends Controller
             // Update the record
             $user->save();
 
-            // Prepare users
-            $users = User::all();
-
-            return view('users.index', ['success_message' => __('User was updated successfully!'), 'users' => $users]);
+            return redirect()->route('users');
         }
 
         // Get roles
@@ -157,6 +149,7 @@ class UsersController extends Controller
      *
      * @param User $user
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function delete(User $user)
     {
